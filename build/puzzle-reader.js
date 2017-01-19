@@ -76,9 +76,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    this.mdString = mdString;
 	    this.htmlString = (0, _marked2.default)(mdString);
+	    this.h1Sections = this._geth1Sections();
 	  }
 	
 	  _createClass(PuzzleReader, [{
+	    key: '_geth1Sections',
+	    value: function _geth1Sections() {
+	      var lines = this.htmlString.split('\n');
+	      var output = { rubric: [], puzzle: [] };
+	      var outLabel = "";
+	      lines.forEach(function (line) {
+	        if (!line) {
+	          return;
+	        }
+	        var h1Label = function (line) {
+	          var rx = /<h1 id=\"(.*)?\".*<\/h1>/;
+	          var matches = line.match(rx);
+	          if (!matches) {
+	            return "";
+	          }
+	          return matches[1];
+	        }(line);
+	        if (h1Label) {
+	          outLabel = h1Label;
+	          output[outLabel] = output[outLabel] || [];
+	          return;
+	        }
+	        if (outLabel) {
+	          output[outLabel].push(line);
+	        }
+	      });
+	      return output;
+	    }
+	  }, {
 	    key: 'getPuzzle',
 	    value: function getPuzzle() {
 	      return null;
@@ -86,7 +116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getRubric',
 	    value: function getRubric() {
-	      return null;
+	      return this.h1Sections.rubric;
 	    }
 	  }]);
 	
