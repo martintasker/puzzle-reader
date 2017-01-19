@@ -2,6 +2,8 @@
 
 This is a component of the engine used in the [Word Play](http://wordplay.databatix.com) site.
 
+***in development: not yet ready for use***
+
 Starting with a source file something like this:
 
 ```md
@@ -37,12 +39,12 @@ It first converts it into a pure JavaScript object something like this:
 {
   "rubric": "<p classname=\"intro\"> ... </p>",
   "puzzle": {
-    "puns": ["dessert", "Caesar, dressing", ...],
+    "puns": ["dessert", "Caesar, dressing", "..."],
     "text": [
       {"p": ["So Joseph did not ", {"pun": 0}, " her."]},
       "br",
       {"p": ["Far off in Rome, ", {"pun": 1}, " as he got up one morning, decided ..."]},
-      {"p": ["In Israel ...", ...]}
+      {"p": ["In Israel ...", "..."]}
     ]
   }
 }
