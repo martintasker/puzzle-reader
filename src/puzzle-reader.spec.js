@@ -56,8 +56,8 @@ So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
     });
     it('has properties', function() {
       expect(typeof that.mdString).toEqual('string');
-      expect(typeof that.htmlString).toEqual('string');
-      expect(typeof that.h1Sections).toEqual('object');
+      expect(typeof that.rubric).toEqual('string');
+      expect(typeof that.puzzle).toEqual('object');
       expect(Object.keys(that).length).toEqual(3);
     });
   });
@@ -67,9 +67,8 @@ So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
       expect(typeof that.getRubric).toEqual('function');
     });
     it('actually works', function() {
-      const rubric = that.getRubric().join('');
       const answer = RUBRIC_MATCH.split('\n').join('');
-      expect(rubric).toEqual(answer);
+      expect(that.getRubric()).toEqual(answer);
     });
     
   });
@@ -77,6 +76,12 @@ So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
   describe('getPuzzle()', function() {
     it('has the API', function() {
       expect(typeof that.getPuzzle).toEqual('function');
+    });
+    it('kind of works', function() {
+      const puzzle = that.getPuzzle();
+      expect(typeof puzzle).toEqual('object');
+      expect(typeof puzzle.text).toEqual('object');
+      expect(puzzle.text.length).toEqual(4);
     });
   });
 });

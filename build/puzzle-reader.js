@@ -75,14 +75,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, PuzzleReader);
 	
 	    this.mdString = mdString;
-	    this.htmlString = (0, _marked2.default)(mdString);
-	    this.h1Sections = this._geth1Sections();
+	    var htmlString = (0, _marked2.default)(mdString);
+	    var h1Sections = this._geth1Sections(htmlString);
+	    this.rubric = h1Sections.rubric.join('');
+	    this.puzzle = { text: this._getPuzzleSections(h1Sections.puzzle) };
 	  }
 	
 	  _createClass(PuzzleReader, [{
 	    key: '_geth1Sections',
-	    value: function _geth1Sections() {
-	      var lines = this.htmlString.split('\n');
+	    value: function _geth1Sections(htmlString) {
+	      var lines = htmlString.split('\n');
 	      var output = { rubric: [], puzzle: [] };
 	      var outLabel = "";
 	      lines.forEach(function (line) {
@@ -109,14 +111,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return output;
 	    }
 	  }, {
+	    key: '_getPuzzleSections',
+	    value: function _getPuzzleSections(puzzleHTML) {
+	      var html = puzzleHTML.join(' ');
+	      var sections = html.split(/<h2.*section<\/h2>/);
+	      var paraSections = sections.map(function (section) {
+	        return section.split(/<\/?p>/).filter(function (line) {
+	          return line !== "" && line !== " ";
+	        });
+	      });
+	      var res = [];
+	      for (var i = 0; i < sections.length; ++i) {
+	        if (i > 0) {
+	          res.push("br");
+	        }
+	        paraSections[i].forEach(function (para) {
+	          res.push({ p: para });
+	        });
+	      }
+	      return res;
+	    }
+	  }, {
 	    key: 'getPuzzle',
 	    value: function getPuzzle() {
-	      return null;
+	      return this.puzzle;
 	    }
 	  }, {
 	    key: 'getRubric',
 	    value: function getRubric() {
-	      return this.h1Sections.rubric;
+	      return this.rubric;
 	    }
 	  }]);
 	
