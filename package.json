@@ -1,0 +1,26 @@
+{
+  "name": "puzzle-reader",
+  "description": "reads pun-laden puzzles for the wordplay.databatix.com",
+  "keywords": "puzzle pun word play wordplay",
+  "author": "Martin Tasker",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "build/puzzle-reader.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martintasker/puzzle-reader.git"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "jest": "^18.0.0",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack",
+    "test": "jest"
+  }
+}
