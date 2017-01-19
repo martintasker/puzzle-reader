@@ -44,7 +44,8 @@ So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
     });
     it('has properties', function() {
       expect(typeof that.mdString).toEqual('string');
-      expect(Object.keys(that).length).toEqual(1);
+      expect(typeof that.mdString).toEqual('string');
+      expect(Object.keys(that).length).toEqual(2);
     });
   });
 

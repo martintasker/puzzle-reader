@@ -10,6 +10,9 @@ module.exports = {
     library: 'PuzzleReader',
     libraryTarget: 'umd'
   },
+  externals: [
+    "marked"
+  ],
   module: {
     loaders: [
       {

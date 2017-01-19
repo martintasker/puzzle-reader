@@ -17,7 +17,9 @@
     "jest": "^18.0.0",
     "webpack": "^1.14.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "marked": "^0.3.6"
+  },
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack",

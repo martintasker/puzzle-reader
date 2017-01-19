@@ -53,7 +53,7 @@ Note certain assumptions in this process:
 * the text is converted into HTML using a markdown converter; the rubric is then indicated by `<h1>rubric</h1>`, and the puzzle similarly
 * within the rubric, HTML is used as-is from the markdown conversion output
 * within the puzzle, `<p>...</p>` sections translate into `{p:}` objects with content, while `<h2>section</h2>` sections translate into `"br"` strings
-* within the puzzle, `<b>...</b>` sections are interpreted as puns; two-word and comma-spaced puns are allowed but nothing more sophisticated than that;
+* within the puzzle, `<strong>...</strong>` sections are interpreted as puns; two-word and comma-spaced puns are allowed but nothing more sophisticated than that;
   you shouldn't have two consecutive but different puns; and you can't use bold highlighting as a means of text formatting
 * in fact you shouldn't use any other form of markup -- no block markup (lists, quotes, etc), and no inline markup (italics, hyperlinks, etc)
 
