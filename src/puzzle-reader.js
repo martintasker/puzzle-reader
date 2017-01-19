@@ -6,7 +6,9 @@ class PuzzleReader {
     const htmlString = marked(mdString);
     const h1Sections = this._geth1Sections(htmlString);
     this.rubric = h1Sections.rubric.join('');
-    this.puzzle = {text: this._getPuzzleSections(h1Sections.puzzle)};
+    const puzzleSections = this._getPuzzleSections(h1Sections.puzzle);
+    const {puns, cleanParas} = this._extractPuns(puzzleSections);
+    this.puzzle = {puns, text: cleanParas};
   };
 
   _geth1Sections(htmlString) {
@@ -51,6 +53,34 @@ class PuzzleReader {
       });
     }
     return res;
+  }
+
+  _extractPuns(paras) {
+    const puns = [];
+    const cleanParas = paras.map(function(para) {
+      if (typeof para === 'string') {
+        return para;
+      }
+      const rx = /<strong>(.*?)<\/strong>/g;
+      const text = para.p;
+      const matches = text.match(rx);
+      if (!matches) {
+        return {p: [text]};
+      }
+      var res = [];
+      const spans = text.split(/<strong>.*?<\/strong>/);
+      for (var i=0; i<spans.length; i++) {
+        if (i > 0) {
+          puns.push((tag => tag.match(/<strong>(.*)<\/strong>/)[1])(matches[i-1]));
+          res.push({pun: puns.length - 1});
+        }
+        if (!!spans[i]) {
+          res.push(spans[i]);
+        }
+      }
+      return {p: res};
+    });
+    return {puns, cleanParas};
   }
 
   getPuzzle() {

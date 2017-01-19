@@ -78,7 +78,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var htmlString = (0, _marked2.default)(mdString);
 	    var h1Sections = this._geth1Sections(htmlString);
 	    this.rubric = h1Sections.rubric.join('');
-	    this.puzzle = { text: this._getPuzzleSections(h1Sections.puzzle) };
+	    var puzzleSections = this._getPuzzleSections(h1Sections.puzzle);
+	
+	    var _extractPuns2 = this._extractPuns(puzzleSections),
+	        puns = _extractPuns2.puns,
+	        cleanParas = _extractPuns2.cleanParas;
+	
+	    this.puzzle = { puns: puns, text: cleanParas };
 	  }
 	
 	  _createClass(PuzzleReader, [{
@@ -130,6 +136,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	      }
 	      return res;
+	    }
+	  }, {
+	    key: '_extractPuns',
+	    value: function _extractPuns(paras) {
+	      var puns = [];
+	      var cleanParas = paras.map(function (para) {
+	        if (typeof para === 'string') {
+	          return para;
+	        }
+	        var rx = /<strong>(.*?)<\/strong>/g;
+	        var text = para.p;
+	        var matches = text.match(rx);
+	        if (!matches) {
+	          return { p: [text] };
+	        }
+	        var res = [];
+	        var spans = text.split(/<strong>.*?<\/strong>/);
+	        for (var i = 0; i < spans.length; i++) {
+	          if (i > 0) {
+	            puns.push(function (tag) {
+	              return tag.match(/<strong>(.*)<\/strong>/)[1];
+	            }(matches[i - 1]));
+	            res.push({ pun: puns.length - 1 });
+	          }
+	          if (!!spans[i]) {
+	            res.push(spans[i]);
+	          }
+	        }
+	        return { p: res };
+	      });
+	      return { puns: puns, cleanParas: cleanParas };
 	    }
 	  }, {
 	    key: 'getPuzzle',

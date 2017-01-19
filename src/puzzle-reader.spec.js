@@ -28,6 +28,8 @@ Then I’ll know how much my people have **bread** since the last census.”
 
 In Israel, they decided to have each **mango** to his home town to register for the census.
 So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
+
+The rest, you know!
   `;
 
   const RUBRIC_MATCH = `
@@ -77,11 +79,18 @@ So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
     it('has the API', function() {
       expect(typeof that.getPuzzle).toEqual('function');
     });
-    it('kind of works', function() {
+    it('actually works', function() {
       const puzzle = that.getPuzzle();
       expect(typeof puzzle).toEqual('object');
       expect(typeof puzzle.text).toEqual('object');
-      expect(puzzle.text.length).toEqual(4);
+      expect(puzzle.text.length).toEqual(5);
+      expect(puzzle.text[0].p.length).toEqual(3);
+      expect(typeof puzzle.text[1]).toEqual('string');
+      expect(puzzle.text[2].p.length).toEqual(7);
+      expect(puzzle.text[3].p.length).toEqual(5);
+      expect(puzzle.text[4].p.length).toEqual(1);
+      expect(typeof puzzle.puns).toEqual('object');
+      expect(puzzle.puns.length).toEqual(6);
     });
   });
 });
