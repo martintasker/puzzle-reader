@@ -30,6 +30,8 @@ In Israel, they decided to have each **mango** to his home town to register for 
 So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
 
 The rest, you know!
+
+**Drink** to that!
   `;
 
   const RUBRIC_MATCH = `
@@ -83,14 +85,15 @@ The rest, you know!
       const puzzle = that.getPuzzle();
       expect(typeof puzzle).toEqual('object');
       expect(typeof puzzle.text).toEqual('object');
-      expect(puzzle.text.length).toEqual(5);
+      expect(puzzle.text.length).toEqual(6);
       expect(puzzle.text[0].p.length).toEqual(3);
       expect(typeof puzzle.text[1]).toEqual('string');
       expect(puzzle.text[2].p.length).toEqual(7);
       expect(puzzle.text[3].p.length).toEqual(5);
       expect(puzzle.text[4].p.length).toEqual(1);
+      expect(puzzle.text[5].p.length).toEqual(2);
       expect(typeof puzzle.puns).toEqual('object');
-      expect(puzzle.puns.length).toEqual(6);
+      expect(puzzle.puns.length).toEqual(7);
     });
   });
 });
