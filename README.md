@@ -2,7 +2,7 @@
 
 This is a component of the engine used in the [Word Play](http://wordplay.databatix.com) site.
 
-***in development: not yet ready for use***
+## What it's for
 
 Starting with a source file something like this:
 
@@ -69,3 +69,33 @@ renderable JSX with the following characteristics:
 * at top level, the `<div>` is a sequence of `<p>` and `<br/>` elements
 * the pure-text children in each paragraph are as-is spans, ensuring that any leading or trailing blanks are included
 * the puns are translated into an appropriate `<Pun>` component with the right content
+
+## How to use
+
+Install with
+
+```shell
+npm install martintasker/puzzle-reader
+```
+
+Then use it in code like so:
+
+```js
+import PuzzleReader from 'puzzle-reader';
+
+const puzzlemd = `
+# rubric
+
+<p>What do do</p>
+
+# puzzle
+
+Solve the **crazy** puzzle!
+`;
+
+const puzzleReader = new PuzzleReader(puzzlemd);
+const rubric = puzzleReader.getRubric(); // string of HTML
+const puzzle = puzzleReader.getPuzzle(); // struct with puns:, text: properties
+```
+
+And that's it!
