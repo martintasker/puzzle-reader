@@ -96,4 +96,23 @@ The rest, you know!
       expect(puzzle.puns.length).toEqual(7);
     });
   });
+
+  describe('getPuzzleComponent()', function() {
+    it('has the API', function() {
+      expect(typeof that.getPuzzleComponent).toEqual('function');
+    });
+    it('actually works', function() {
+      const Pun = (props => props.pun);
+      const c = that.getPuzzleComponent(Pun);
+      expect(c.type).toEqual('div');
+      expect(c.props.children.length).toEqual(6);
+      expect(c.props.children[0].type).toEqual('p');
+      expect(c.props.children[1].type).toEqual('br');
+      expect(c.props.children[2].type).toEqual('p');
+      expect(c.props.children[2].props.children[0].type).toEqual('span');
+      expect(c.props.children[2].props.children[0].props.children[0]).toEqual('Far off in Rome, ');
+      expect(c.props.children[2].props.children[1].type).toEqual(Pun);
+      expect(c.props.children[2].props.children[1].props.pun).toEqual('Caesar, dressing');
+    });
+  });
 });

@@ -1,4 +1,5 @@
 import marked from 'marked';
+import React from 'react';
 
 class PuzzleReader {
   constructor(mdString) {
@@ -83,12 +84,36 @@ class PuzzleReader {
     return {puns, cleanParas};
   }
 
+  getRubric() {
+    return this.rubric;
+  }
+
   getPuzzle() {
     return this.puzzle;
   }
 
-  getRubric() {
-    return this.rubric;
+  getPuzzleComponent(punElement) {
+    var self = this;
+
+    return React.createElement('div', null, this.puzzle.text.map(mapLine));
+
+    function mapLine(line, i) {
+      if (typeof line === 'string') {
+        return React.createElement('br', {key: i});
+      }
+      var text = line.p;
+      if (!text) {
+        return null;
+      }
+      return React.createElement('p', {key: i}, text.map(mapSpan));
+    }
+
+    function mapSpan(span, i) {
+      if (typeof span === 'string') {
+        return React.createElement('span', {key: i}, [span]);
+      }
+      return React.createElement(punElement, {key: i, pun: self.puzzle.puns[span.pun]});
+    }
   }
 }
 

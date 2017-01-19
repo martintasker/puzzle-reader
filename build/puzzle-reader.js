@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("marked"));
+		module.exports = factory(require("marked"), require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define(["marked"], factory);
+		define(["marked", "react"], factory);
 	else if(typeof exports === 'object')
-		exports["PuzzleReader"] = factory(require("marked"));
+		exports["PuzzleReader"] = factory(require("marked"), require("react"));
 	else
-		root["PuzzleReader"] = factory(root["marked"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+		root["PuzzleReader"] = factory(root["marked"], root["react"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -65,6 +65,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _marked = __webpack_require__(1);
 	
 	var _marked2 = _interopRequireDefault(_marked);
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -169,14 +173,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return { puns: puns, cleanParas: cleanParas };
 	    }
 	  }, {
+	    key: 'getRubric',
+	    value: function getRubric() {
+	      return this.rubric;
+	    }
+	  }, {
 	    key: 'getPuzzle',
 	    value: function getPuzzle() {
 	      return this.puzzle;
 	    }
 	  }, {
-	    key: 'getRubric',
-	    value: function getRubric() {
-	      return this.rubric;
+	    key: 'getPuzzleComponent',
+	    value: function getPuzzleComponent(punElement) {
+	      var self = this;
+	
+	      return _react2.default.createElement('div', null, this.puzzle.text.map(mapLine));
+	
+	      function mapLine(line, i) {
+	        if (typeof line === 'string') {
+	          return _react2.default.createElement('br', { key: i });
+	        }
+	        var text = line.p;
+	        if (!text) {
+	          return null;
+	        }
+	        return _react2.default.createElement('p', { key: i }, text.map(mapSpan));
+	      }
+	
+	      function mapSpan(span, i) {
+	        if (typeof span === 'string') {
+	          return _react2.default.createElement('span', { key: i }, [span]);
+	        }
+	        return _react2.default.createElement(punElement, { key: i, pun: self.puzzle.puns[span.pun] });
+	      }
 	    }
 	  }]);
 	
@@ -190,6 +219,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ }
 /******/ ])

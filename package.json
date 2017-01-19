@@ -18,7 +18,8 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
-    "marked": "^0.3.6"
+    "marked": "^0.3.6",
+    "react": "^15.4.2"
   },
   "scripts": {
     "start": "webpack --watch",
