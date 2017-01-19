@@ -1,9 +1,7 @@
 import PuzzleReader from './puzzle-reader';
 
-describe('PuzzleReader', function() {
-
-  // test data
-  const DATA = `
+// test data
+const DATA = `
 # rubric
 
 <p className="intro">
@@ -32,9 +30,9 @@ So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
 The rest, you know!
 
 **Drink** to that!
-  `;
+`;
 
-  const RUBRIC_MATCH = `
+const RUBRIC_MATCH = `
 <p className="intro">
   Fill in the missing words with the names of food or drink to complete the classic Christmas story. Beware of shocking puns!!
 </p>
@@ -46,11 +44,13 @@ The rest, you know!
 </p>
 `
 
+describe('PuzzleReader.reader', function() {
+
   // test instance
   var that;
 
   beforeEach(function() {
-    that = new PuzzleReader(DATA);
+    that = new PuzzleReader.reader(DATA);
   });
 
   describe('initialization', function() {
@@ -96,23 +96,27 @@ The rest, you know!
       expect(puzzle.puns.length).toEqual(7);
     });
   });
+});
 
-  describe('getPuzzleComponent()', function() {
-    it('has the API', function() {
-      expect(typeof that.getPuzzleComponent).toEqual('function');
-    });
-    it('actually works', function() {
-      const Pun = (props => props.pun);
-      const c = that.getPuzzleComponent(Pun);
-      expect(c.type).toEqual('div');
-      expect(c.props.children.length).toEqual(6);
-      expect(c.props.children[0].type).toEqual('p');
-      expect(c.props.children[1].type).toEqual('br');
-      expect(c.props.children[2].type).toEqual('p');
-      expect(c.props.children[2].props.children[0].type).toEqual('span');
-      expect(c.props.children[2].props.children[0].props.children[0]).toEqual('Far off in Rome, ');
-      expect(c.props.children[2].props.children[1].type).toEqual(Pun);
-      expect(c.props.children[2].props.children[1].props.pun).toEqual('Caesar, dressing');
-    });
+describe('PuzzleReader.render', function() {
+  // test instance
+  var that;
+
+  beforeEach(function() {
+    that = new PuzzleReader.reader(DATA);
+  });
+
+  it('converts successfully', function() {
+    const Pun = (props => props.pun);
+    const c = PuzzleReader.render(that.getPuzzle(), Pun);
+    expect(c.type).toEqual('div');
+    expect(c.props.children.length).toEqual(6);
+    expect(c.props.children[0].type).toEqual('p');
+    expect(c.props.children[1].type).toEqual('br');
+    expect(c.props.children[2].type).toEqual('p');
+    expect(c.props.children[2].props.children[0].type).toEqual('span');
+    expect(c.props.children[2].props.children[0].props.children[0]).toEqual('Far off in Rome, ');
+    expect(c.props.children[2].props.children[1].type).toEqual(Pun);
+    expect(c.props.children[2].props.children[1].props.pun).toEqual('Caesar, dressing');
   });
 });

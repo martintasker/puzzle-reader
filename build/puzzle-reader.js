@@ -74,9 +74,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var PuzzleReader = function () {
-	  function PuzzleReader(mdString) {
-	    _classCallCheck(this, PuzzleReader);
+	var reader = function () {
+	  function reader(mdString) {
+	    _classCallCheck(this, reader);
 	
 	    this.mdString = mdString;
 	    var htmlString = (0, _marked2.default)(mdString);
@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.puzzle = { puns: puns, text: cleanParas };
 	  }
 	
-	  _createClass(PuzzleReader, [{
+	  _createClass(reader, [{
 	    key: '_geth1Sections',
 	    value: function _geth1Sections(htmlString) {
 	      var lines = htmlString.split('\n');
@@ -182,37 +182,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function getPuzzle() {
 	      return this.puzzle;
 	    }
-	  }, {
-	    key: 'getPuzzleComponent',
-	    value: function getPuzzleComponent(punElement) {
-	      var self = this;
-	
-	      return _react2.default.createElement('div', null, this.puzzle.text.map(mapLine));
-	
-	      function mapLine(line, i) {
-	        if (typeof line === 'string') {
-	          return _react2.default.createElement('br', { key: i });
-	        }
-	        var text = line.p;
-	        if (!text) {
-	          return null;
-	        }
-	        return _react2.default.createElement('p', { key: i }, text.map(mapSpan));
-	      }
-	
-	      function mapSpan(span, i) {
-	        if (typeof span === 'string') {
-	          return _react2.default.createElement('span', { key: i }, [span]);
-	        }
-	        return _react2.default.createElement(punElement, { key: i, pun: self.puzzle.puns[span.pun] });
-	      }
-	    }
 	  }]);
 	
-	  return PuzzleReader;
+	  return reader;
 	}();
 	
-	exports.default = PuzzleReader;
+	var render = function render(puzzle, punElement) {
+	
+	  return _react2.default.createElement('div', null, puzzle.text.map(mapLine));
+	
+	  function mapLine(line, i) {
+	    if (typeof line === 'string') {
+	      return _react2.default.createElement('br', { key: i });
+	    }
+	    var text = line.p;
+	    if (!text) {
+	      return null;
+	    }
+	    return _react2.default.createElement('p', { key: i }, text.map(mapSpan));
+	  }
+	
+	  function mapSpan(span, i) {
+	    if (typeof span === 'string') {
+	      return _react2.default.createElement('span', { key: i }, [span]);
+	    }
+	    return _react2.default.createElement(punElement, { key: i, pun: puzzle.puns[span.pun] });
+	  }
+	};
+	
+	exports.default = { reader: reader, render: render };
 
 /***/ },
 /* 1 */

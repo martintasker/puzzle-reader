@@ -70,6 +70,8 @@ renderable JSX with the following characteristics:
 * the pure-text children in each paragraph are as-is spans, ensuring that any leading or trailing blanks are included
 * the puns are translated into an appropriate `<Pun>` component with the right content
 
+This job is done using the `PuzzleReader.render()` function which you should call from a React render() function.
+
 ## How to use
 
 Install with
@@ -78,7 +80,7 @@ Install with
 npm install martintasker/puzzle-reader
 ```
 
-Then use it in code like so:
+Read a puzzle in:
 
 ```js
 import PuzzleReader from 'puzzle-reader';
@@ -93,10 +95,27 @@ const puzzlemd = `
 Solve the **crazy** puzzle!
 `;
 
-const puzzleReader = new PuzzleReader(puzzlemd);
+const reader = new PuzzleReader.reader(puzzlemd);
 const rubric = puzzleReader.getRubric(); // string of HTML
 const puzzle = puzzleReader.getPuzzle(); // struct with puns:, text: properties
 ```
 
-And that's it!
--
+Realistically you'll get the puzzle data from somewhere other than a literal, and you'll store it
+in application state probably using Redux.
+
+Later, in a presentation component such as `Puzzle`, you can render like this:
+
+```js
+import React from 'react';
+
+import PuzzleReader from 'puzzle-reader';
+import Pun from './Pun.jsx';
+
+Puzzle = (props) => {
+  return <div>
+    {PuzzleReader.render(props.puzzle, Pun)}
+  </div>;
+}
+```
+
+So, `Pun` is your React component for rendering a Pun (and for handling interaction with it, best done using Redux).
