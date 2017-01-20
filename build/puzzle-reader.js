@@ -124,7 +124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '_getPuzzleSections',
 	    value: function _getPuzzleSections(puzzleHTML) {
 	      var html = puzzleHTML.join(' ');
-	      var sections = html.split(/<h2.*section<\/h2>/);
+	      var sections = html.split(/<h2.*?section<\/h2>/);
 	      var paraSections = sections.map(function (section) {
 	        return section.split(/<\/?p>/).filter(function (line) {
 	          return line !== "" && line !== " ";

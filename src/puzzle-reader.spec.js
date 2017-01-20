@@ -27,6 +27,8 @@ Then I’ll know how much my people have **bread** since the last census.”
 In Israel, they decided to have each **mango** to his home town to register for the census.
 So Joseph went with Mary to Bethlehem, just as her due **date** was approaching.
 
+## section
+
 The rest, you know!
 
 **Drink** to that!
@@ -85,13 +87,14 @@ describe('PuzzleReader.reader', function() {
       const puzzle = that.getPuzzle();
       expect(typeof puzzle).toEqual('object');
       expect(typeof puzzle.text).toEqual('object');
-      expect(puzzle.text.length).toEqual(6);
+      expect(puzzle.text.length).toEqual(7);
       expect(puzzle.text[0].p.length).toEqual(3);
       expect(typeof puzzle.text[1]).toEqual('string');
       expect(puzzle.text[2].p.length).toEqual(7);
       expect(puzzle.text[3].p.length).toEqual(5);
-      expect(puzzle.text[4].p.length).toEqual(1);
-      expect(puzzle.text[5].p.length).toEqual(2);
+      expect(typeof puzzle.text[4]).toEqual('string');
+      expect(puzzle.text[5].p.length).toEqual(1);
+      expect(puzzle.text[6].p.length).toEqual(2);
       expect(typeof puzzle.puns).toEqual('object');
       expect(puzzle.puns.length).toEqual(7);
     });
@@ -110,7 +113,7 @@ describe('PuzzleReader.render', function() {
     const Pun = (props => props.pun);
     const c = PuzzleReader.render(that.getPuzzle(), Pun);
     expect(c.type).toEqual('div');
-    expect(c.props.children.length).toEqual(6);
+    expect(c.props.children.length).toEqual(7);
     expect(c.props.children[0].type).toEqual('p');
     expect(c.props.children[1].type).toEqual('br');
     expect(c.props.children[2].type).toEqual('p');

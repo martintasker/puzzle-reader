@@ -42,7 +42,7 @@ class reader {
 
   _getPuzzleSections(puzzleHTML) {
     const html = puzzleHTML.join(' ');
-    const sections = html.split(/<h2.*section<\/h2>/);
+    const sections = html.split(/<h2.*?section<\/h2>/);
     const paraSections = sections.map(section => section.split(/<\/?p>/).filter(line => line!=="" && line!==" "));
     var res = [];
     for (var i = 0; i<sections.length; ++i) {
