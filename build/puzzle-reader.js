@@ -206,7 +206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (typeof span === 'string') {
 	      return _react2.default.createElement('span', { key: i }, [span]);
 	    }
-	    return _react2.default.createElement(punElement, { key: i, pun: puzzle.puns[span.pun] });
+	    return _react2.default.createElement(punElement, { key: i, pun: puzzle.puns[span.pun], index: span.pun });
 	  }
 	};
 	

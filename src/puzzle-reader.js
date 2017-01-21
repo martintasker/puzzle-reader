@@ -112,7 +112,7 @@ const render = (puzzle, punElement) => {
     if (typeof span === 'string') {
       return React.createElement('span', {key: i}, [span]);
     }
-    return React.createElement(punElement, {key: i, pun: puzzle.puns[span.pun]});
+    return React.createElement(punElement, {key: i, pun: puzzle.puns[span.pun], index: span.pun});
   }
 }
 
