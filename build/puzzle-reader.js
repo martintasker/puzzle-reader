@@ -187,24 +187,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return reader;
 	}();
 	
-	var render = function render(puzzle, punElement) {
+	var render = function render(puzzle, punElement, elementOverrides) {
 	
-	  return _react2.default.createElement('div', null, puzzle.text.map(mapLine));
+	  var elementDefaults = { div: 'div', br: 'br', p: 'p', span: 'span' };
+	  var elements = Object.assign(elementDefaults, elementOverrides);
+	
+	  return _react2.default.createElement(elements.div, null, puzzle.text.map(mapLine));
 	
 	  function mapLine(line, i) {
 	    if (typeof line === 'string') {
-	      return _react2.default.createElement('br', { key: i });
+	      return _react2.default.createElement(elements.br, { key: i });
 	    }
 	    var text = line.p;
 	    if (!text) {
 	      return null;
 	    }
-	    return _react2.default.createElement('p', { key: i }, text.map(mapSpan));
+	    return _react2.default.createElement(elements.p, { key: i }, text.map(mapSpan));
 	  }
 	
 	  function mapSpan(span, i) {
 	    if (typeof span === 'string') {
-	      return _react2.default.createElement('span', { key: i }, [span]);
+	      return _react2.default.createElement(elements.span, { key: i }, [span]);
 	    }
 	    return _react2.default.createElement(punElement, { key: i, pun: puzzle.puns[span.pun], index: span.pun });
 	  }

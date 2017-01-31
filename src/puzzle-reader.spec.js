@@ -122,4 +122,18 @@ describe('PuzzleReader.render', function() {
     expect(c.props.children[2].props.children[1].type).toEqual(Pun);
     expect(c.props.children[2].props.children[1].props.pun).toEqual('Caesar, dressing');
   });
+
+  it('converts successfully with element overrides', function() {
+    const Pun = (props => props.pun);
+    const c = PuzzleReader.render(that.getPuzzle(), Pun, {div: 'table', p: 'td', span: 'i', br: 'p'});
+    expect(c.type).toEqual('table');
+    expect(c.props.children.length).toEqual(7);
+    expect(c.props.children[0].type).toEqual('td');
+    expect(c.props.children[1].type).toEqual('p');
+    expect(c.props.children[2].type).toEqual('td');
+    expect(c.props.children[2].props.children[0].type).toEqual('i');
+    expect(c.props.children[2].props.children[0].props.children[0]).toEqual('Far off in Rome, ');
+    expect(c.props.children[2].props.children[1].type).toEqual(Pun);
+    expect(c.props.children[2].props.children[1].props.pun).toEqual('Caesar, dressing');
+  });
 });

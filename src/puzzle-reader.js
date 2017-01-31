@@ -93,24 +93,27 @@ class reader {
   }
 }
 
-const render = (puzzle, punElement) => {
+const render = (puzzle, punElement, elementOverrides) => {
 
-  return React.createElement('div', null, puzzle.text.map(mapLine));
+  const elementDefaults = {div: 'div', br: 'br', p: 'p', span: 'span'};
+  const elements = Object.assign(elementDefaults, elementOverrides);
+
+  return React.createElement(elements.div, null, puzzle.text.map(mapLine));
 
   function mapLine(line, i) {
     if (typeof line === 'string') {
-      return React.createElement('br', {key: i});
+      return React.createElement(elements.br, {key: i});
     }
     var text = line.p;
     if (!text) {
       return null;
     }
-    return React.createElement('p', {key: i}, text.map(mapSpan));
+    return React.createElement(elements.p, {key: i}, text.map(mapSpan));
   }
 
   function mapSpan(span, i) {
     if (typeof span === 'string') {
-      return React.createElement('span', {key: i}, [span]);
+      return React.createElement(elements.span, {key: i}, [span]);
     }
     return React.createElement(punElement, {key: i, pun: puzzle.puns[span.pun], index: span.pun});
   }
